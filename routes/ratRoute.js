@@ -1,20 +1,37 @@
-module.exports = ({ ratController }) => {
-  const get = {
+module.exports = ({
+  getRat,
+  createRat,
+  updateRat,
+  destroyRat,
+}) => ([
+  {
     path: '/rat',
     method: 'GET',
     config: {
       description: 'Description text here',
       notes: 'Describe your notes here',
       tags: ['api'],
-      handler: ratController.get,
+      handler: getRat,
       validate: {
         options: {
           allowUnknown: true,
         },
       },
     },
-  };
-  return {
-    ...get,
-  };
-};
+  },
+  {
+    path: '/rat',
+    method: 'POST',
+    config: {
+      description: 'Description text here',
+      notes: 'Describe your notes here',
+      tags: ['api'],
+      handler: createRat,
+      validate: {
+        options: {
+          allowUnknown: true,
+        },
+      },
+    },
+  },
+]);

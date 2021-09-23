@@ -1,4 +1,5 @@
 const userRoute = require('./userRoute');
 const ratRoute = require('./ratRoute');
 
-module.exports = (dependencies) => [userRoute(dependencies), ratRoute(dependencies)];
+// eslint-disable-next-line max-len
+module.exports = (dependencies) => [userRoute(dependencies), ratRoute(dependencies)].flatMap((routes) => routes);

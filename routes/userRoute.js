@@ -1,20 +1,17 @@
-module.exports = ({ userController }) => {
-  const get = {
+module.exports = ({ getUser }) => [
+  {
     path: '/user',
     method: 'GET',
     config: {
       description: 'Description text here',
       notes: 'Describe your notes here',
       tags: ['api'],
-      handler: userController.get,
+      handler: getUser,
       validate: {
         options: {
           allowUnknown: true,
         },
       },
     },
-  };
-  return {
-    ...get,
-  };
-};
+  },
+];
