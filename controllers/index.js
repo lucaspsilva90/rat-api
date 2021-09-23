@@ -1,7 +1,12 @@
-const userController = require('./userController');
-const ratController = require('./ratController');
+const factory = require('./factory');
+const config = require('../config');
+const schemas = require('../schemas');
 
-module.exports = {
-  userController,
-  ratController,
-};
+const adapters = require('../adapters')({
+  config,
+});
+
+module.exports = factory({
+  adapters,
+  schemas,
+});
