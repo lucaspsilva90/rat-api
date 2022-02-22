@@ -4,24 +4,30 @@ const userControllerWrapper = ({
   schemas: {
     userSchema,
   },
+  logger,
 }) => {
   const create = async (request, reply) => {
-    const { payload, headers } = request;
+    const { payload } = request;
 
-    userSchema.create.validate(payload);
+    const errors = userSchema.create.validate(payload);
 
-    return adapters.create({
+    return adapters.createUser({
       payload,
-      headers,
+      errors,
       config,
-      onSuccess: (response) => reply.response(response).code(201),
+      onSuccess: (response) => reply.response(response),
       onError: (error) => reply.response(error).code(error.statusCode),
     });
   };
 
-  const get = async () => {
-
-  };
+  const get = async (request, reply) => adapters.getUser({
+    config,
+    onSuccess: (response) => reply.response(response).code(200),
+    onError: (error) => {
+      logger.error(error);
+      return reply.response(error).code(error);
+    },
+  });
 
   const update = async () => {
 

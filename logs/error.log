@@ -1,0 +1,4 @@
+2022-02-13 19:28:58:2858 [31merror[39m: [31mlisten EADDRINUSE: address already in use 0.0.0.0:3000[39m
+2022-02-13 19:32:48:3248 [31merror[39m: [31mURI must include hostname, domain name, and tld[39m
+2022-02-13 19:39:28:3928 [31merror[39m: [31mgetaddrinfo ENOTFOUND localhosdsdst[39m
+2022-02-13 19:40:22:4022 [31merror[39m: [31mgetaddrinfo ENOTFOUND localhosdsdst[39m

@@ -1,12 +1,10 @@
 const server = require('./server');
+const logger = require('./libs/logger');
 
 const init = async () => {
   const serverInstance = await server;
-  try {
-    await serverInstance.start();
-  } catch (error) {
-    console.log(error);
-  }
+  await serverInstance.start();
+  logger.info('Server is running!');
 };
 
 init();
