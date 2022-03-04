@@ -8,11 +8,20 @@ const autenticateWrapper = ({
 }) => {
   const authenticate = async ({
     payload,
+    errors,
     onSuccess,
     onError,
   }) => {
-    const { email, password } = payload;
     try {
+      const { email, password } = payload;
+
+      if (errors.error) {
+        throw new CustomError({
+          message: errors.error.details[0].message,
+          statusCode: 400,
+        });
+      }
+
       await mongo.connect(config.db.url, config.db.name);
 
       const user = await repository.User.findOne({ email });
@@ -21,21 +30,20 @@ const autenticateWrapper = ({
 
       if (!match) throw new CustomError({ message: 'E-mail or password incorrect', statusCode: 403 });
 
-      const token = jsonwebtoken.sign({}, 'ce37c2d76f70b5aa20120e55101e1d2a', {
+      const token = jsonwebtoken.sign({ user: user.name, email: user.email }, config.jwt.key, {
         // eslint-disable-next-line no-underscore-dangle
         subject: user._id,
         expiresIn: '1d',
+        audience: 'urn:audience:test',
+        issuer: 'urn:issuer:test',
       });
 
-      const tokenReturn = {
+      const response = {
+        status: 'OK',
         token,
-        user: {
-          name: user.name,
-          email: user.email,
-        },
       };
 
-      return onSuccess(tokenReturn);
+      return onSuccess(response);
     } catch (error) {
       return onError(error);
     }

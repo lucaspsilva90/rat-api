@@ -6,10 +6,6 @@ module.exports = ({ joi }) => ({
     weight: joi.number().positive(),
     color: joi.string(),
     pattern: joi.string(),
-    owner: joi.object().required({
-      name: joi.string().required(),
-      email: joi.string().required(),
-    }),
   }),
   update: joi.object({
     name: joi.string().optional(),
@@ -20,7 +16,7 @@ module.exports = ({ joi }) => ({
     gender: joi.string().optional(),
     owner: joi.object().optional({
       name: joi.string().optional(),
-      email: joi.string().optional(),
+      email: joi.string().email().optional(),
     }),
   }),
 });

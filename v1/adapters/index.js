@@ -1,6 +1,7 @@
 const authenticateWrapper = require('./authentication');
 const ratWrapper = require('./crud/rat');
 const userWrapper = require('./crud/user');
+const profileWrapper = require('./profile');
 
 module.exports = (dependencies) => ({
   // CRUD
@@ -78,4 +79,14 @@ module.exports = (dependencies) => ({
     bcrypt: dependencies.bcrypt,
     jsonwebtoken: dependencies.jsonwebtoken,
   }).authenticate,
+
+  // PROFILE
+  getUserProfileByEmail: profileWrapper({
+    config: dependencies.config,
+    mongo: dependencies.mongo,
+    repository: dependencies.repository,
+    CustomError: dependencies.CustomError,
+    bcrypt: dependencies.bcrypt,
+    jsonwebtoken: dependencies.jsonwebtoken,
+  }).getUserProfileByEmail,
 });

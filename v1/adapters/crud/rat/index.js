@@ -3,6 +3,7 @@ const ratWrapper = ({
   mongo,
   repository,
   CustomError,
+  jsonwebtoken,
 }) => {
   const get = async ({
     onSuccess,
@@ -19,6 +20,7 @@ const ratWrapper = ({
 
   const create = async ({
     payload,
+    headers,
     errors,
     onSuccess,
     onError,
@@ -36,7 +38,12 @@ const ratWrapper = ({
         weight,
         color,
         pattern,
+        gender,
       } = payload;
+
+      const [, token] = headers.authorization.split(' ');
+
+      const { user, email } = jsonwebtoken.decode(token);
 
       const rat = {
         name,
@@ -44,6 +51,11 @@ const ratWrapper = ({
         weight,
         color,
         pattern,
+        gender,
+        owner: {
+          email,
+          user,
+        },
       };
       await mongo.connect(config.db.url, config.db.name);
       const response = await repository.Rat.insert(rat);

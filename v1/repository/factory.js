@@ -23,10 +23,10 @@ module.exports = ({
     .then((result) => result.value),
   save: (filter, data) => db.collection(collectionName)
     .findOneAndUpdate(filter, data),
-  findOne: (message) => db.collection(collectionName)
-    .findOne(message),
-  find: (message) => db.collection(collectionName)
-    .find(message).toArray().then((result) => result),
+  findOne: (filter, projection) => db.collection(collectionName)
+    .findOne(filter, projection),
+  find: (filter, projection) => db.collection(collectionName)
+    .find(filter, projection).toArray().then((result) => result),
   count: (message) => db.collection(collectionName)
     .find(message).count(),
   findMany: (filter) => db.collection(collectionName)

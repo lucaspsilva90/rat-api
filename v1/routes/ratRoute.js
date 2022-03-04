@@ -7,60 +7,44 @@ module.exports = ({
   {
     path: '/v1/rats',
     method: 'GET',
-    config: {
-      description: 'Description text here',
-      notes: 'Describe your notes here',
-      tags: ['api'],
-      handler: getRat,
-      validate: {
-        options: {
-          allowUnknown: true,
-        },
+    handler: getRat,
+    options: {
+      auth: {
+        strategy: 'jwt',
+        mode: 'required',
       },
     },
   },
   {
     path: '/v1/rats',
     method: 'POST',
-    config: {
-      description: 'Description text here',
-      notes: 'Describe your notes here',
-      tags: ['api'],
-      handler: createRat,
-      validate: {
-        options: {
-          allowUnknown: true,
-        },
+    handler: createRat,
+    options: {
+      auth: {
+        strategy: 'jwt',
+        mode: 'required',
       },
     },
   },
   {
     path: '/v1/rats/{id}',
     method: 'PUT',
-    config: {
-      description: 'Description text here',
-      notes: 'Describe your notes here',
-      tags: ['api'],
-      handler: updateRat,
-      validate: {
-        options: {
-          allowUnknown: true,
-        },
+    handler: updateRat,
+    options: {
+      auth: {
+        strategy: 'jwt',
+        mode: 'required',
       },
     },
   },
   {
     path: '/v1/rats/{id}',
     method: 'DELETE',
-    config: {
-      description: 'Description text here',
-      notes: 'Describe your notes here',
-      tags: ['api'],
-      handler: destroyRat,
-      validate: {
-        options: {
-          allowUnknown: true,
-        },
+    handler: destroyRat,
+    options: {
+      auth: {
+        strategy: 'jwt',
+        mode: 'required',
       },
     },
   },

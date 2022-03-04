@@ -1,9 +1,8 @@
-const { genericError } = require('../../../common/utils/responseHandler');
+const { errorHandler } = require('../../../common/utils/responseHandler');
 
 const ratControllerWrapper = ({
   adapters,
   config,
-  logger,
   schemas: {
     ratSchema,
   },
@@ -18,15 +17,15 @@ const ratControllerWrapper = ({
       payload,
       headers,
       config,
-      onSuccess: (response) => reply.response(response).code(201),
-      onError: (error) => reply(genericError(error)),
+      onSuccess: (response) => reply.response(response),
+      onError: (error) => reply.response(errorHandler(error)).code(error.statusCode),
     });
   };
 
   const get = async (request, reply) => adapters.getRat({
     config,
-    onSuccess: (response) => reply.response(response).code(200),
-    onError: (error) => reply(genericError(error)),
+    onSuccess: (response) => reply.response(response),
+    onError: (error) => reply.response(errorHandler(error)).code(error.statusCode),
   });
 
   const update = async (request, reply) => {
@@ -36,10 +35,7 @@ const ratControllerWrapper = ({
       payload,
       params,
       onSuccess: (response) => reply.response(response),
-      onError: (error) => {
-        logger.error(error);
-        return reply.response(error).code(error);
-      },
+      onError: (error) => reply.response(errorHandler(error)).code(error.statusCode),
     });
   };
 
@@ -50,10 +46,7 @@ const ratControllerWrapper = ({
       payload,
       params,
       onSuccess: (response) => reply.response(response),
-      onError: (error) => {
-        logger.error(error);
-        return reply.response(error).code(error);
-      },
+      onError: (error) => reply.response(errorHandler(error)).code(error.statusCode),
     });
   };
 

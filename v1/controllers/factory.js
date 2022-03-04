@@ -1,6 +1,7 @@
 const userController = require('./userController');
 const ratController = require('./ratController');
 const authenticateController = require('./authenticationController');
+const profileController = require('./profileController');
 
 module.exports = (adapters) => ({
   getRat: ratController(adapters).get,
@@ -12,4 +13,5 @@ module.exports = (adapters) => ({
   updateUser: userController(adapters).update,
   destroyUser: userController(adapters).destroy,
   authenticateUser: authenticateController(adapters).authenticate,
+  getUserProfileByEmail: profileController(adapters).getUserProfileByEmail,
 });

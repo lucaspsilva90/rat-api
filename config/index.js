@@ -8,6 +8,9 @@ module.exports = {
   server: {
     port: process.env.SERVER_PORT,
   },
+  jwt: {
+    key: process.env.JWT_KEY,
+  },
   db: {
     user: process.env.DATABASE_USER,
     name: process.env.DATABASE_NAME,
