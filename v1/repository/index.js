@@ -1,5 +1,5 @@
 const factory = require('./factory');
-const db = require('../../libs/db');
+const db = require('../../common/libs/db');
 const config = require('../../config');
 
 module.exports = {

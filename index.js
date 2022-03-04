@@ -1,5 +1,5 @@
 const server = require('./server');
-const logger = require('./libs/logger');
+const logger = require('./common/utils/logger');
 
 const init = async () => {
   const serverInstance = await server;

@@ -1,6 +1,10 @@
 require('dotenv').config();
 
 module.exports = {
+  service: {
+    name: 'rat-api',
+    env: process.env.NODE_ENV,
+  },
   server: {
     port: process.env.SERVER_PORT,
   },

@@ -2,6 +2,7 @@ const ratWrapper = ({
   config,
   mongo,
   repository,
+  CustomError,
 }) => {
   const get = async ({
     onSuccess,
@@ -23,7 +24,12 @@ const ratWrapper = ({
     onError,
   }) => {
     try {
-      if (errors.error) throw Error(errors.error.details[0].message);
+      if (errors.error) {
+        throw new CustomError({
+          message: errors.error.details[0].message,
+          statusCode: 400,
+        });
+      }
       const {
         name,
         birthday,

@@ -1,10 +1,11 @@
+const { errorHandler } = require('../../../common/utils/responseHandler');
+
 const userControllerWrapper = ({
   adapters,
   config,
   schemas: {
     userSchema,
   },
-  logger,
 }) => {
   const create = async (request, reply) => {
     const { payload } = request;
@@ -16,25 +17,36 @@ const userControllerWrapper = ({
       errors,
       config,
       onSuccess: (response) => reply.response(response),
-      onError: (error) => reply.response(error).code(error.statusCode),
+      onError: (error) => reply.response(errorHandler(error)).code(error.statusCode),
     });
   };
 
   const get = async (request, reply) => adapters.getUser({
     config,
     onSuccess: (response) => reply.response(response).code(200),
-    onError: (error) => {
-      logger.error(error);
-      return reply.response(error).code(error);
-    },
+    onError: (error) => reply.response(errorHandler(error)).code(error.statusCode),
   });
 
-  const update = async () => {
+  const update = async (request, reply) => {
+    const { payload, params } = request;
 
+    return adapters.updateUser({
+      config,
+      payload,
+      params,
+      onSuccess: (response) => reply.response(response).code(200),
+      onError: (error) => reply.response(errorHandler(error)).code(error.statusCode),
+    });
   };
+  const destroy = async (request, reply) => {
+    const { params } = request;
 
-  const destroy = async () => {
-
+    return adapters.destroyUser({
+      config,
+      params,
+      onSuccess: (response) => reply.response(response).code(200),
+      onError: (error) => reply.response(errorHandler(error)).code(error.statusCode),
+    });
   };
 
   const userController = {

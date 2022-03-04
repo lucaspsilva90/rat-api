@@ -1,5 +1,6 @@
 const userController = require('./userController');
 const ratController = require('./ratController');
+const authenticateController = require('./authenticationController');
 
 module.exports = (adapters) => ({
   getRat: ratController(adapters).get,
@@ -10,4 +11,5 @@ module.exports = (adapters) => ({
   createUser: userController(adapters).create,
   updateUser: userController(adapters).update,
   destroyUser: userController(adapters).destroy,
+  authenticateUser: authenticateController(adapters).authenticate,
 });

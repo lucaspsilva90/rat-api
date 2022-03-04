@@ -9,6 +9,18 @@ services:
       - "27017:27017"
     volumes:
       - /usr/mongodb/data/mongodb
+  app:
+    build: .
+    container_name: rat-api
+    ports:
+      - 3000:3000
+    volumes:
+      - .:/usr/app
+      - /usr/app/node_modules
+    links:
+      - mongo
+    depends_on:
+      - mongo
 volumes:
   mongodb:
     driver: local

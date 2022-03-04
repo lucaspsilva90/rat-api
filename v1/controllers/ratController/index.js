@@ -1,3 +1,5 @@
+const { genericError } = require('../../../common/utils/responseHandler');
+
 const ratControllerWrapper = ({
   adapters,
   config,
@@ -17,20 +19,14 @@ const ratControllerWrapper = ({
       headers,
       config,
       onSuccess: (response) => reply.response(response).code(201),
-      onError: (error) => {
-        logger.error(error);
-        return reply.response(error);
-      },
+      onError: (error) => reply(genericError(error)),
     });
   };
 
   const get = async (request, reply) => adapters.getRat({
     config,
     onSuccess: (response) => reply.response(response).code(200),
-    onError: (error) => {
-      logger.error(error);
-      return reply.response(error).code(error);
-    },
+    onError: (error) => reply(genericError(error)),
   });
 
   const update = async (request, reply) => {
